@@ -1,0 +1,33 @@
+{
+  "name": "filterit/filterit-php",
+  "description": "A tool that helps you easily parse and build filterit query strings.",
+  "type": "package",
+  "license": "MIT",
+  "homepage": "https://github.com/FilterIt/filterit-php",
+  "keywords": [
+    "php",
+    "filterit",
+    "query",
+    "querystring"
+  ],
+  "authors": [
+    {
+      "name": "Emad Malekpour",
+      "email": "prodemmi@gmail.com",
+      "homepage": "https://github.com/prodemmi"
+    }
+  ],
+  "require": {
+    "php": ">=8.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "FilterIt\\": "src/"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require-dev": {
+    "phpunit/phpunit": "^10.2"
+  }
+}
