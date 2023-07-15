@@ -17,7 +17,7 @@ print_r($filter->toQuery());
 
 ### Parse Query String
 ```php
-print_r(QueryParser::parseQuery("id=equal:10"));
+print_r(QueryParser::parseQuery($queryString));
 
 //[
 //     'query'         => 'id=equal:10',
@@ -27,4 +27,4 @@ print_r(QueryParser::parseQuery("id=equal:10"));
 //     'value'         => 'id',
 //     'delimiter'     => 'and',
 //]
-```
+````
