@@ -56,6 +56,21 @@ class QueryParser
         return str_contains($value, '`') ? explode('`', $value) : $value;
     }
 
+    private static function parseSortValues(string $query) : array
+    {
+        $result   = [];
+        $exploded = explode(',', $query);
+        foreach ( $exploded as $ex ) {
+            [ $column, $direction ] = explode(':', $ex, 2);
+            $result[] = [
+                'column'    => $column,
+                'direction' => $direction
+            ];
+        }
+
+        return $result;
+    }
+
     private static function limitedLevel(string $string) : int
     {
         $level = 0;
@@ -83,6 +98,15 @@ class QueryParser
             ];
         } else {
             [ $column, $operator, $value ] = self::parseValues($query);
+
+            if ( $column === 'sort_by' ) {
+                return [
+                    'query'    => $query,
+                    'operator' => 'sort_by',
+                    'value'    => self::parseSortValues("$operator:$value")
+                ];
+            }
+
             return [
                 'query'         => $query,
                 'isNestedQuery' => false,

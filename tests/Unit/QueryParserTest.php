@@ -223,4 +223,36 @@ class QueryParserTest extends TestCase
 
         $this->assertEquals($parsedQuery, $expect);
     }
+
+    public function testSimpleSortByQuery()
+    {
+        $parsedQuery = QueryParser::parseQuery('id=in:10`15`20&sort_by=id:desc,title:asc');
+        $expect      = [
+            [
+                "query"         => "id=in:10`15`20",
+                "isNestedQuery" => false,
+                "column"        => "id",
+                "operator"      => "in",
+                "value"         => [ '10', '15', '20' ],
+                "delimiter"     => "and"
+            ],
+            [
+                "query"    => "sort_by=id:desc,title:asc",
+                "operator" => "sort_by",
+                "value"    => [
+                    [
+                        'column'    => 'id',
+                        'direction' => 'desc'
+                    ],
+                    [
+                        'column'    => 'title',
+                        'direction' => 'asc'
+                    ]
+                ],
+            ],
+        ];
+
+        $this->assertEquals($parsedQuery, $expect);
+    }
+
 }
