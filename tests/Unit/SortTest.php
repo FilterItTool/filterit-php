@@ -11,7 +11,7 @@ class SortTest extends TestCase
 {
     public FilterIt $filterIt;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
         $this->filterit = new FilterIt();
@@ -51,13 +51,13 @@ class SortTest extends TestCase
 
     public function testSortByWhen()
     {
-        foreach ( [false,true] as $when ) {
+        foreach ([false,true] as $when) {
             $this->filterit->clear();
             $this->filterit->sortByWhen($when, 'id', Direction::DESC);
 
-            if ( $when ) {
+            if ($when) {
                 $expect = 'sort_by=id:desc';
-            }else{
+            } else {
                 $expect = '';
             }
             $this->assertEquals($expect, rawurldecode($this->filterit->toQuery()));

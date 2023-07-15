@@ -4,20 +4,20 @@ namespace FilterIt\Enums;
 
 enum Operator: string
 {
-    const Equal            = 'equal';
-    const NotEqual         = 'not_equal';
-    const GreaterThan      = 'gt';
-    const GreaterThanEqual = 'gte';
-    const LessThan         = 'lt';
-    const LessThanEqual    = 'lte';
-    const IsNull           = 'is_null';
-    const IsNotNull        = 'is_null';
-    const In               = 'in';
-    const NotIn            = 'not_in';
-    const Between          = 'between';
-    const NotBetween       = 'not_between';
-    const EndsWith         = 'ends_with';
-    const StartsWith       = 'starts_with';
-    const Like             = 'like';
-    const NotLike          = 'not_like';
+    public const Equal            = 'equal';
+    public const NotEqual         = 'not_equal';
+    public const GreaterThan      = 'gt';
+    public const GreaterThanEqual = 'gte';
+    public const LessThan         = 'lt';
+    public const LessThanEqual    = 'lte';
+    public const IsNull           = 'is_null';
+    public const IsNotNull        = 'is_null';
+    public const In               = 'in';
+    public const NotIn            = 'not_in';
+    public const Between          = 'between';
+    public const NotBetween       = 'not_between';
+    public const EndsWith         = 'ends_with';
+    public const StartsWith       = 'starts_with';
+    public const Like             = 'like';
+    public const NotLike          = 'not_like';
 }

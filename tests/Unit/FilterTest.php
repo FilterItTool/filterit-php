@@ -2,7 +2,6 @@
 
 namespace FilterIt\Tests\Unit;
 
-use FilterIt\Enums\Direction;
 use FilterIt\Enums\Operator;
 use FilterIt\FilterIt;
 use PHPUnit\Framework\TestCase;
@@ -11,7 +10,7 @@ class FilterTest extends TestCase
 {
     public FilterIt $filterIt;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
         $this->filterit = new FilterIt();
@@ -96,13 +95,13 @@ class FilterTest extends TestCase
 
     public function testSortByWhen()
     {
-        foreach ( [false,true] as $when ) {
+        foreach ([false,true] as $when) {
             $this->filterit->clear();
             $this->filterit->filterByWhen($when, 'id', Operator::Equal, 10);
 
-            if ( $when ) {
+            if ($when) {
                 $expect = 'id=equal:10';
-            }else{
+            } else {
                 $expect = '';
             }
             $this->assertEquals($expect, rawurldecode($this->filterit->toQuery()));
@@ -111,16 +110,16 @@ class FilterTest extends TestCase
 
     public function testSortByWhenWithOr()
     {
-        foreach ( [false,true] as $when ) {
+        foreach ([false,true] as $when) {
             $this->filterit->clear();
             $this->filterit->filterBy('id', Operator::Equal, 10)
                 ->orWhen($when, function (FilterIt $filterIt) {
                     return $filterIt->filterBy('name', Operator::Like, 'Emad');
                 });
 
-            if ( $when ) {
+            if ($when) {
                 $expect = 'id=equal:10|name=like:Emad';
-            }else{
+            } else {
                 $expect = 'id=equal:10';
             }
             $this->assertEquals($expect, rawurldecode($this->filterit->toQuery()));

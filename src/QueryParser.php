@@ -4,12 +4,12 @@ namespace FilterIt;
 
 class QueryParser
 {
-    public static function parseQuery(string $queryString) : array
+    public static function parseQuery(string $queryString): array
     {
         return self::parseRootQueries($queryString);
     }
 
-    private static function parseRootQueries(string $string) : array
+    private static function parseRootQueries(string $string): array
     {
         $result        = [];
         $level         = 0;
@@ -17,16 +17,16 @@ class QueryParser
         $limitedLevel  = self::limitedLevel($string);
         $delimiter     = 'and';
 
-        for ( $i = 0; $i < strlen($string); $i++ ) {
+        for ($i = 0; $i < strlen($string); $i++) {
             $char = $string[$i];
-            if ( $char === '(' ) {
+            if ($char === '(') {
                 $level++;
-            } elseif ( $char === ')' ) {
+            } elseif ($char === ')') {
                 $level--;
             }
 
             $do = $limitedLevel > 0 ? $level < $limitedLevel : $level === $limitedLevel;
-            if ( $do && in_array($char, [ '|', '&' ]) ) {
+            if ($do && in_array($char, [ '|', '&' ])) {
                 $query    = substr($string, $startPosition, $i - $startPosition);
                 $result[] = self::addToResult($query, $delimiter);
 
@@ -39,28 +39,28 @@ class QueryParser
         return $result;
     }
 
-    private static function isNestedQuery(string $query) : bool
+    private static function isNestedQuery(string $query): bool
     {
         return str_starts_with($query, '(') && str_ends_with($query, ')');
     }
 
-    private static function parseValues(string $query) : array
+    private static function parseValues(string $query): array
     {
         [ $column, $value ] = explode('=', $query, 2);
         [ $operator, $originalValue ] = explode(':', $value, 2);
         return [ $column, $operator, self::parseValue($originalValue) ];
     }
 
-    private static function parseValue(string $value) : null|string|array
+    private static function parseValue(string $value): null|string|array
     {
         return str_contains($value, '`') ? explode('`', $value) : $value;
     }
 
-    private static function parseSortValues(string $query) : array
+    private static function parseSortValues(string $query): array
     {
         $result   = [];
         $exploded = explode(',', $query);
-        foreach ( $exploded as $ex ) {
+        foreach ($exploded as $ex) {
             [ $column, $direction ] = explode(':', $ex, 2);
             $result[] = [
                 'column'    => $column,
@@ -71,13 +71,13 @@ class QueryParser
         return $result;
     }
 
-    private static function limitedLevel(string $string) : int
+    private static function limitedLevel(string $string): int
     {
         $level = 0;
-        for ( $i = 0; $i < strlen($string); $i++ ) {
+        for ($i = 0; $i < strlen($string); $i++) {
             $char = $string[$i];
 
-            if ( $char === '(' ) {
+            if ($char === '(') {
                 $level++;
             } else {
                 break;
@@ -87,9 +87,9 @@ class QueryParser
         return $level;
     }
 
-    private static function addToResult(string $query, string $delimiter) : array
+    private static function addToResult(string $query, string $delimiter): array
     {
-        if ( self::isNestedQuery($query) ) {
+        if (self::isNestedQuery($query)) {
             return [
                 'query'         => $query,
                 'isNestedQuery' => true,
@@ -99,7 +99,7 @@ class QueryParser
         } else {
             [ $column, $operator, $value ] = self::parseValues($query);
 
-            if ( $column === 'sort_by' ) {
+            if ($column === 'sort_by') {
                 return [
                     'query'    => $query,
                     'operator' => 'sort_by',
