@@ -17,14 +17,14 @@ print_r($filter->toQuery());
 
 ### Parse Query String
 ```php
-print_r(QueryParser::parseQuery($queryString));
+print_r(QueryParser::parseQuery('id=equal:10'));
 
 //[
 //     'query'         => 'id=equal:10',
 //     'isNestedQuery' => false,
 //     'column'        => 'id',
-//     'operator'      => 'starts_with',
-//     'value'         => 'id',
+//     'operator'      => 'equal',
+//     'value'         => '10',
 //     'delimiter'     => 'and',
 //]
 ````
